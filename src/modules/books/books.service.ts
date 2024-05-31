@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -20,9 +20,12 @@ export class BooksService {
   
   
   async create(createBookDto: CreateBookDto) : Promise<Book> {
-    const author = await this.authorRepository.findOneBy({name: createBookDto.author    })
-    
-    return 
+    const author = await this.authorRepository.findOneBy({name: createBookDto.authorName});
+    if (!author) {
+      throw new BadRequestException('Author not found');
+    }
+    const book = this.bookRepository.create({ ...createBookDto, author });
+    return this.bookRepository.save(book);
   }
 
   async findAll() {
@@ -36,8 +39,23 @@ export class BooksService {
 
   async update(id: number, updateBookDto: UpdateBookDto) {
     const book= await this.bookRepository.findOneBy({id})
-    this.bookRepository.merge(book, updateBookDto)
-    return await this.bookRepository.save(book)
+    if(!book){
+      throw new BadRequestException('Book not found')
+    }
+
+    let author;
+
+    if (updateBookDto.authorName) {
+      const author = await this.authorRepository.findOneBy({ name: updateBookDto.authorName });
+      if (!author) {
+        throw new BadRequestException('Author not found');
+      }
+      book.author = author; // Asignar el autor al libro si se proporciona authorName
+    }
+
+
+    this.bookRepository.merge(book, updateBookDto);
+  return await this.bookRepository.save(book);
   }
 
   async remove(id: number) {

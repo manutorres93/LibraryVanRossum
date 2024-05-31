@@ -18,7 +18,7 @@ export class Book {
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @ManyToOne(()=> Author, (author)=> author.id, {eager:true})
+  @ManyToOne(()=> Author, (author)=> author.books, {eager:true})
   author:Author
 
 
