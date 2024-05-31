@@ -1,4 +1,4 @@
-import { IsString, IsNumber } from 'class-validator';
+import { IsString, IsNumber, IsOptional } from 'class-validator';
 
 export class CreateBookDto {
   @IsString()
@@ -9,4 +9,8 @@ export class CreateBookDto {
 
   @IsNumber()
   price: number;
+
+  @IsString()
+  authorName: string; //si lo dejo solo en author falla porque cree que v aa recobir un tipo Author
+
 }

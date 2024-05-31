@@ -3,6 +3,5 @@ export class CreateAuthorDto {
 
   @IsString()
   name: string;
-
   
 }
