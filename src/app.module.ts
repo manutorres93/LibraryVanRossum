@@ -2,8 +2,9 @@ import { Module } from '@nestjs/common';
 
 import { BooksModule } from './modules/books/books.module';
 import { AuthorModule } from './modules/author/author.module';
-import { SaleModule } from './modules/sale/sale.module';
+
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { SalesModule } from './modules/sales/sales.module';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       retryAttempts:10
     }),
     
-    BooksModule, AuthorModule, SaleModule],
+    BooksModule, AuthorModule, SalesModule],
   controllers: [],
   providers: [],
 })

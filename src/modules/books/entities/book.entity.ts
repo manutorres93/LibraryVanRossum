@@ -1,5 +1,6 @@
 import { Author } from 'src/modules/author/entities/author.entity';
-import { Column, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Sale } from 'src/modules/sales/entities/sale.entity';
+import { Column, DeleteDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'books' })
 export class Book {
@@ -20,6 +21,9 @@ export class Book {
 
   @ManyToOne(()=> Author, (author)=> author.books, {eager:true})
   author:Author
+
+  @OneToMany(()=> Sale, (sale)=> sale.book)
+  sales:Sale[]
 
 
 }

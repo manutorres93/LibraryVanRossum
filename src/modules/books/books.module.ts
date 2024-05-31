@@ -6,6 +6,7 @@ import { Book } from './entities/book.entity';
 import { AuthorModule } from '../author/author.module';
 import { Author } from '../author/entities/author.entity';
 import { AuthorService } from '../author/author.service';
+import { Sale } from '../sales/entities/sale.entity';
 
 @Module({
   imports:[
@@ -14,5 +15,7 @@ import { AuthorService } from '../author/author.service';
   ],
   controllers: [BooksController],
   providers: [BooksService, AuthorService],
+  exports:[TypeOrmModule]
+
 })
 export class BooksModule {}
