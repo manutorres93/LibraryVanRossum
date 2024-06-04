@@ -3,7 +3,7 @@ import { CreateSaleDto } from './dto/create-sale.dto';
 import { UpdateSaleDto } from './dto/update-sale.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Sale } from './entities/sale.entity';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { Book } from '../books/entities/book.entity';
 
 @Injectable()
@@ -34,6 +34,33 @@ export class SalesService {
   async findOne(id: number) {
     const sale = await this.salesRepository.findOneBy( {id} )
     return sale
+  }
+
+  async findByParam(searchTerm: string, orderBy: string,
+    order: 'ASC' | 'DESC',
+    page: number,
+    pageSize: number, columnName: string){
+      try {
+
+        const [result, total] = await this.salesRepository.findAndCount( {
+          where: {
+          [columnName]: ILike(`%${searchTerm}%`)},
+          order: { [orderBy]: order },
+          take: pageSize,
+          skip: (page - 1) * pageSize,
+       },);
+
+       return {
+        data: result,
+        total,
+        page,
+        pageCount: Math.ceil(total / pageSize)
+      };
+        
+      } catch (error) {
+        throw new BadRequestException('Failed to find athletes with provided parameters', error.message);
+        
+      }
   }
 
   update(id: number, updateSaleDto: UpdateSaleDto) {

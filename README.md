@@ -70,4 +70,48 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## License
 
+## .env
+
+DB_NAME =books_2
+#DB_CONNECTION = mongodb://
+#DB_HOST =190.147.64.47
+#DB_USER =riwi_user
+#DB_PASSWORD =abcd1234
+#DB_HOST_CLOUD= db-ejemplo-01.elrgq55
+#NODE_ENV= nube
+#JWT_SECRET= C0d3rd34lt0n1v3l
+#ACCESS_TOKEN_EXPIRY='10m'
+#PORT=5431  
+
+ 
+#type: 'postgres',
+#host: process.env.DB_HOST,
+#port: parseInt(process.env.DB_PORT),
+#username: process.env.DB_USER,
+#password: process.env.DB_PASSWORD,
+#database: process.env.DB_NAME,
+#autoLoadEntities: true,
+#synchronize: true,
+#retryDelay:3000,
+#retryAttempts:10 
+
+
+#type: 'postgres',
+ host: '190.147.64.47',
+port: 5431,
+ username: 'riwi_user',
+password: 'abcd1234',
+   autoLoadEntities: true,
+   database: 'books_2',
+   synchronize: true,
+   retryDelay:3000,
+   retryAttempts:10
+
+DB_CONNECTION=mysql
+DB_HOST=brzst35gzwmepa5inz2s-mysql.services.clever-cloud.com
+DB_PORT=3306
+DB_NAME=brzst35gzwmepa5inz2s
+DB_USER=u1rnrslxuiukxfqt
+DB_PASSWORD=tcQQcQVu6PYNR1naMVhb
+
 Nest is [MIT licensed](LICENSE).
